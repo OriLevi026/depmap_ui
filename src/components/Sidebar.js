@@ -6,6 +6,9 @@ import Analysis from './Analysis';
 import Actions from './Actions';
 import './sidebar.css';
 
+const api = 'http://localhost:5000';
+
+
 const CollapsibleSection = ({ title, isOpen, toggleSection, children }) => {
   return (
     <div className="collapsible-section">
@@ -30,11 +33,11 @@ const Sidebar = ({ handleViewAction, handleAddAction, handleViewAnalysis }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const labelsResponse = await axios.get('http://127.0.0.1:5000/get_existing_labels');
+        const labelsResponse = await axios.get(`${api}/get_existing_labels`);
         console.log("get_existing_labels", labelsResponse.data);
         setExistingLabels(labelsResponse.data);
 
-        const actionsResponse = await axios.get('http://127.0.0.1:5000/get_actions');
+        const actionsResponse = await axios.get(`${api}/get_actions`);
         console.log("get_actions", actionsResponse.data);
 
         // Ensure that actionsResponse.data is an array
@@ -46,7 +49,7 @@ const Sidebar = ({ handleViewAction, handleAddAction, handleViewAnalysis }) => {
         }
 
         if (selectedLabel) {
-          const actionStatusResponse = await axios.get(`http://127.0.0.1:5000/get_action_progress/${selectedLabel}`);
+          const actionStatusResponse = await axios.get(`${api}/get_action_progress/${selectedLabel}`);
           console.log("action_progress", actionStatusResponse.data);
           setAnalysisProgress(actionStatusResponse.data);
         }
@@ -65,7 +68,7 @@ const Sidebar = ({ handleViewAction, handleAddAction, handleViewAnalysis }) => {
     setSelectedLabel(label);
     setOpenSection('Analysis'); // Automatically open the Analysis section
     try {
-      const actionStatusResponse = await axios.get(`http://127.0.0.1:5000/get_action_progress/${label}`);
+      const actionStatusResponse = await axios.get(`${api}/get_action_progress/${label}`);
       console.log("action_progress", actionStatusResponse.data);
       setAnalysisProgress(actionStatusResponse.data);
     } catch (err) {

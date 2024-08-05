@@ -7,6 +7,8 @@ import './App.css';
 import useStore from './store';
 import axios from 'axios';
 
+const api = 'http://localhost:5000';
+
 function App() {
   const { setViewerMode, setViewerContent, setLoading, setError } = useStore();
 
@@ -14,7 +16,7 @@ function App() {
     const fetchActions = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://127.0.0.1:5000/get_actions');
+        const response = await axios.get(`${api}/get_actions`);
         setViewerContent(Object.values(response.data)); // Convert object to array if needed
         setLoading(false);
       } catch (error) {
@@ -34,7 +36,7 @@ function App() {
   const handleViewAction = async (action) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://127.0.0.1:5000/show_action/${action}`);
+      const response = await axios.get(`${api}/show_action/${action}`);
       setViewerMode('view_action');
       setViewerContent(response.data);
       setLoading(false);

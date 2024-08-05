@@ -5,8 +5,8 @@
     border-radius: 5px;
     margin-left: auto;
     margin-right: auto;
-    overflow-y: auto;
-    height: calc(100vh - 40px);
+    overflow-y: hidden;
+    height: 100%;
   }
   
   .viewer-container {
@@ -94,7 +94,7 @@
   }
   
   .notes-cell {
-    max-width: 200px;
+    max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -109,7 +109,23 @@
     position: relative;
     padding: 10px;
   }
+  .version-cell {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+  }
   
+  .version-cell:hover {
+    width: 100%;
+    white-space: normal;
+    overflow: visible;
+    background-color: #444;
+    z-index: 1;
+    position: relative;
+    padding: 10px;
+  }
   
   
   .no-data {

@@ -1,0 +1,47 @@
+/* src/components/sidebar.css */
+.sidebar {
+    width: 320px; /* Increased width */
+    background-color: #2c2c2c;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    color: #e0e0e0;
+    height: 100vh; /* Ensure it takes the full height of the viewport */
+    position: fixed; /* Fix the sidebar position */
+    overflow-y: auto; /* Add scroll for overflow content */
+    scrollbar-width: thin; /* Make the scrollbar thinner */
+    scrollbar-color: #858585 #3c3c3c; /* Match the scrollbar color to the content background color */
+  }
+  
+  .collapsible-section {
+    margin-bottom: 20px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #333;
+  }
+  
+  .collapsible-header {
+    background-color: #444;
+    color: #e0e0e0;
+    padding: 15px; /* Increased padding for a better look */
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+  }
+  
+  .collapsible-header h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .collapsible-content {
+    padding: 15px;
+    background-color: #3c3c3c;
+    border-top: 1px solid #444; /* Added a border to distinguish the content */
+  }
+  
+  .toggle-icon {
+    font-size: 18px;
+  }
+  

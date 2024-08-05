@@ -1,0 +1,72 @@
+/* src/components/actions.css */
+.actions-section {
+  padding: 20px;
+  background-color: #1c1c1c;
+  color: #e0e0e0;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.action-card {
+  background-color: #2a2a2a;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-name {
+  font-size: 13px;
+  color: #ffffff;
+}
+
+.show-action-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.show-icon {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
+.add-action-button {
+  background-color: #444;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-action-button:hover {
+  background-color: #ffffff;
+  color: black;
+}
+
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

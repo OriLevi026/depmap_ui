@@ -24,7 +24,7 @@
 }
 
 .action-name {
-  font-size: 13px;
+  font-size: 11px;
   color: #ffffff;
 }
 
@@ -39,13 +39,17 @@
 .show-icon {
   width: 24px;
   height: 24px;
+  margin-right: auto;
+  margin-left: 15px;  
   filter: invert(1);
 }
 
 .add-action-button {
-  background-color: #444;
+  background-color: #2a2a2a;
   color: #ffffff;
-  border: none;
+  border: 1px solid #444;
+  width: 100%;
+  padding-top: 5px;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
@@ -58,6 +62,7 @@
 }
 
 .loading-spinner {
+  margin: auto;
   width: 16px;
   height: 16px;
   border: 2px solid #f3f3f3;

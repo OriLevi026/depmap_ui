@@ -12,9 +12,10 @@ const Repo = ({ setExistingLabels }) => {
   const handleClone = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://127.0.0.1:5000/clone_repository', {
-        input_type: inputType,
-        input_value: inputValue,
+      console.log("inputType", inputType, "inputValue", inputValue, "label", label);
+      // Send a request to the updated server endpoint
+      const response = await axios.post('http://127.0.0.1:5000/clone', {
+        urls: inputType === 'GH Repo URL' ? [inputValue] : [], // if it's a repo URL
         label: label,
       });
 

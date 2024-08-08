@@ -1,3 +1,4 @@
+// src/components/Sidebar.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Repo from './Repo';
@@ -7,7 +8,6 @@ import Actions from './Actions';
 import './sidebar.css';
 
 const api = 'http://localhost:5000';
-
 
 const CollapsibleSection = ({ title, isOpen, toggleSection, children }) => {
   return (
@@ -33,11 +33,11 @@ const Sidebar = ({ handleViewAction, handleAddAction, handleViewAnalysis }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const labelsResponse = await axios.get(`${api}/get_existing_labels`);
+        const labelsResponse = await axios.get(`${api}/labels`);
         console.log("get_existing_labels", labelsResponse.data);
         setExistingLabels(labelsResponse.data);
 
-        const actionsResponse = await axios.get(`${api}/get_actions`);
+        const actionsResponse = await axios.get(`${api}/actions`);
         console.log("get_actions", actionsResponse.data);
 
         // Ensure that actionsResponse.data is an array
@@ -49,7 +49,7 @@ const Sidebar = ({ handleViewAction, handleAddAction, handleViewAnalysis }) => {
         }
 
         if (selectedLabel) {
-          const actionStatusResponse = await axios.get(`${api}/get_action_progress/${selectedLabel}`);
+          const actionStatusResponse = await axios.get(`${api}/analysis/status/${selectedLabel}`);
           console.log("action_progress", actionStatusResponse.data);
           setAnalysisProgress(actionStatusResponse.data);
         }
@@ -68,7 +68,7 @@ const Sidebar = ({ handleViewAction, handleAddAction, handleViewAnalysis }) => {
     setSelectedLabel(label);
     setOpenSection('Analysis'); // Automatically open the Analysis section
     try {
-      const actionStatusResponse = await axios.get(`${api}/get_action_progress/${label}`);
+      const actionStatusResponse = await axios.get(`${api}/analysis/status/${label}`);
       console.log("action_progress", actionStatusResponse.data);
       setAnalysisProgress(actionStatusResponse.data);
     } catch (err) {

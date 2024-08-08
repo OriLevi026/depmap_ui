@@ -1,3 +1,4 @@
+// src/components/Viewer.js
 import React, { useMemo, useState } from 'react';
 import JSONPretty from 'react-json-pretty';
 import 'react-json-pretty/themes/monikai.css';

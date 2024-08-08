@@ -15,7 +15,7 @@ const Analysis = ({ selectedLabel, loading, error, handleViewAnalysis }) => {
       if (selectedLabel) {
         setIsLoading(true);
         try {
-          const response = await axios.get(`http://127.0.0.1:5000/get_action_progress/${selectedLabel}`);
+          const response = await axios.get(`http://127.0.0.1:5000/analysis/status/${selectedLabel}/all`);
           setActionStatuses(response.data);
           console.log("action_status", response.data);
         } catch (err) {
@@ -30,14 +30,13 @@ const Analysis = ({ selectedLabel, loading, error, handleViewAnalysis }) => {
     fetchActionStatuses();
   }, [selectedLabel]);
 
-    
   const handleReset = async (action) => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/reset_action', { action, label: selectedLabel });
-      if (response.data.success) {
+      const response = await axios.delete(`http://127.0.0.1:5000/analysis/results/${selectedLabel}/${action}`);
+      if (response.data.status === 'success') {
         alert(`Successfully reset action: ${action}`);
         setIsLoading(true);
-        const refreshResponse = await axios.get(`http://127.0.0.1:5000/get_action_progress/${selectedLabel}`);
+        const refreshResponse = await axios.get(`http://127.0.0.1:5000/analysis/status/${selectedLabel}/all`);
         setActionStatuses(refreshResponse.data);
         setIsLoading(false);
       } else {
@@ -50,7 +49,7 @@ const Analysis = ({ selectedLabel, loading, error, handleViewAnalysis }) => {
 
   const handleStartAnalysis = async (action) => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/start_analysis', { action, label: selectedLabel });
+      const response = await axios.post(`http://127.0.0.1:5000/analysis/start`, { action, label: selectedLabel });
       if (response.data.status === 'started') {
         alert(`Successfully started analysis: ${action}`);
         pollAnalysisStatus(action);
@@ -65,7 +64,7 @@ const Analysis = ({ selectedLabel, loading, error, handleViewAnalysis }) => {
   const pollAnalysisStatus = async (action) => {
     const interval = setInterval(async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:5000/get_action_progress/${selectedLabel}`);
+        const response = await axios.get(`http://127.0.0.1:5000/analysis/status/${selectedLabel}/all`);
         const updatedStatuses = response.data;
 
         if (updatedStatuses[action].status !== 0) {
@@ -82,22 +81,22 @@ const Analysis = ({ selectedLabel, loading, error, handleViewAnalysis }) => {
 
   const handleView = async (action) => {
     try {
-        const response = await axios.get(`http://127.0.0.1:5000/get_index/${selectedLabel}`);
-        console.log("response", response.data);
-        
-        // Parse the CSV response to JSON
-        const parsedData = Papa.parse(response.data, {
-            header: true, // Use the first row as the header
-            skipEmptyLines: true
-        }).data;
+      const response = await axios.get(`http://127.0.0.1:5000/analysis/results/${selectedLabel}/${action}`);
+      console.log("response", response.data);
+      
+      // Parse the CSV response to JSON
+      const parsedData = Papa.parse(response.data, {
+        header: true, // Use the first row as the header
+        skipEmptyLines: true
+      }).data;
 
-        console.log("Parsed Data", parsedData);
+      console.log("Parsed Data", parsedData);
 
-        handleViewAnalysis(parsedData); // Pass the parsed data to the Viewer
+      handleViewAnalysis(parsedData); // Pass the parsed data to the Viewer
     } catch (error) {
-        console.error('Error viewing action:', error);
+      console.error('Error viewing action:', error);
     } 
-};
+  };
 
   const formatActionText = (action) => {
     return action
